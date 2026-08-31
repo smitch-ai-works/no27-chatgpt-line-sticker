@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ChatGPTでLINEスタンプを作って売るガイド｜スマホだけ・写真1枚・8個から申請</title>
+<meta name="description" content="ChatGPTで10個入りのスタンプ画像を1枚作り、LINE公式アプリ「LINEスタンプメーカー」で切り抜いて販売申請まで出す手順。コピペで使えるプロンプトと、LINE公式ガイドラインの規格つき。">
+<style>
+/* ===== すみっち共通ブロック（sk kit / 2026-08） =====
+   配色・幅・角丸・フォントは全て --sk-* 変数。
+   ページごとの THEME で上書きして、元のデザインに馴染ませる。 */
+:root{
+ --sk-ink:#242130; --sk-muted:#6E6878;
+ --sk-accent:#4A3F68; --sk-accent2:#6F5F96;
+ --sk-line:#E5E0EB; --sk-page:#FCFBFE; --sk-card:#FFFFFF;
+ --sk-surface:#F7F5FB; --sk-soft:#EEEAF8;
+ --sk-warm:#FFF3EF; --sk-warm-bd:#F0CBC0; --sk-warm-ink:#68433A; --sk-warm-b:#B24826;
+ --sk-dark1:#242130; --sk-dark2:#33475D; --sk-hl:#FFD9CB;
+ --sk-green:#06C755;
+ --sk-radius:22px; --sk-radius-sm:16px;
+ --sk-wrap:660px;
+ --sk-shadow:0 12px 34px rgba(0,0,0,.07);
+ --sk-font:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+ --sk-serif:var(--sk-font);
+}
+/* 親が display:flex / grid のページでも潰れないようにする。
+   また、ページ側が *{box-sizing:border-box} を持たない場合に
+   padding分だけ横へはみ出すため、ここで明示的に指定する。 */
+.sk-author-strip,.sk-sec,.sk-gap,.sk-cta,.sk-footer{width:100%;max-width:100%;flex:0 0 100%;
+ grid-column:1/-1;align-self:stretch;display:block;box-sizing:border-box}
+.sk-author-strip *,.sk-sec *,.sk-gap *,.sk-cta *,.sk-footer *,
+.sk-author-strip *:before,.sk-sec *:before,.sk-gap *:before,.sk-cta *:before,.sk-footer *:before,
+.sk-author-strip *:after,.sk-sec *:after,.sk-gap *:after,.sk-cta *:after,.sk-footer *:after{box-sizing:border-box}
+.sk-sec{font-family:var(--sk-font);line-height:1.85;color:var(--sk-ink);background:var(--sk-page);
+ padding:56px 16px;margin:0;text-align:left;font-size:16px;font-weight:400}
+.sk-wrap{width:min(var(--sk-wrap),100%);margin:0 auto}
+.sk-head{text-align:center;margin-bottom:26px}
+.sk-kicker{display:block;font-size:12px;font-weight:900;letter-spacing:.18em;color:var(--sk-accent2)}
+.sk-sec h2.sk-h,.sk-gap h2.sk-h,.sk-cta h2.sk-h{font-family:var(--sk-serif);
+ font-size:clamp(24px,4.2vw,34px);line-height:1.4;margin:8px 0 0;color:inherit;font-weight:700;letter-spacing:-.01em}
+.sk-br{display:none}
+/* -- 著者カード -- */
+.sk-author-strip{padding:18px 16px;background:var(--sk-surface);border-bottom:1px solid var(--sk-line);
+ font-family:var(--sk-font)}
+.sk-author{display:flex;align-items:center;gap:14px;width:min(420px,100%);margin:0 auto;padding:10px 14px;
+ border-radius:var(--sk-radius-sm);background:var(--sk-card);border:1px solid var(--sk-line);
+ text-decoration:none;color:var(--sk-ink);box-shadow:var(--sk-shadow);
+ transition:transform .2s ease,box-shadow .2s ease}
+.sk-author:hover{transform:translateY(-2px)}
+.sk-author img{width:52px;height:52px;flex:none;border-radius:50%;background:#fff;display:block}
+.sk-author-txt{min-width:0}
+.sk-author-role,.sk-author-name,.sk-author-id{display:block}
+.sk-author-role{font-size:11px;color:var(--sk-muted);line-height:1.5}
+.sk-author-name{font-weight:900;font-size:16px;line-height:1.45;color:var(--sk-ink)}
+.sk-author-id{font-size:11px;color:var(--sk-muted);font-weight:400;line-height:1.5}
+.sk-author-arrow{margin-left:auto;color:var(--sk-muted);opacity:.6;font-weight:900;font-size:18px}
+/* -- 疑問3連 -- */
+.sk-doubt-lead{margin:0 auto 22px;text-align:center;color:var(--sk-muted);font-size:15px;line-height:1.9}
+.sk-doubts{display:grid;gap:11px}
+.sk-doubt{display:flex;gap:13px;align-items:flex-start;background:var(--sk-card);border:1px solid var(--sk-line);
+ border-radius:var(--sk-radius-sm);padding:15px 18px;box-shadow:var(--sk-shadow)}
+.sk-doubt .sk-no{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+ background:var(--sk-soft);color:var(--sk-accent);font-weight:900;font-size:12px}
+.sk-doubt p{margin:0;font-size:15px;line-height:1.8}
+.sk-answer{margin:18px 0 0;padding:19px 22px;border-left:5px solid var(--sk-accent2);background:var(--sk-soft);
+ border-radius:0 var(--sk-radius-sm) var(--sk-radius-sm) 0;font-size:14.5px;line-height:1.95}
+.sk-answer strong{color:var(--sk-accent)}
+.sk-answer .sk-n{font-weight:900;color:var(--sk-accent2)}
+/* -- 断絶 -- */
+.sk-gap{background:linear-gradient(160deg,var(--sk-dark1) 0%,var(--sk-dark2) 100%);color:#fff;
+ padding:64px 16px;font-family:var(--sk-font);line-height:1.85;font-size:16px}
+.sk-gap h2.sk-h{color:#fff}
+.sk-gap .sk-kicker{color:var(--sk-hl);opacity:.9}
+.sk-gap-lead{margin:0 auto;font-size:clamp(15.5px,2.2vw,17.5px);line-height:2;
+ color:rgba(255,255,255,.87);text-align:center}
+.sk-gap-lead strong{color:var(--sk-hl)}
+.sk-gap-list{width:min(560px,100%);margin:26px auto 0;list-style:none;padding:20px 22px;
+ background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+ border-radius:var(--sk-radius);display:grid;gap:12px}
+.sk-gap-list li{display:flex;gap:12px;font-size:14.5px;color:rgba(255,255,255,.9);line-height:1.7}
+.sk-gap-list li:before{content:"\25B8";color:var(--sk-hl);font-weight:900;flex:none}
+.sk-gap-close{margin:22px auto 0;color:rgba(255,255,255,.72);font-size:14.5px;text-align:center}
+/* -- ストーリー -- */
+.sk-story{width:min(620px,100%);margin:46px auto 0;background:var(--sk-card);color:var(--sk-ink);
+ border-radius:var(--sk-radius);padding:34px 28px 26px;box-shadow:0 24px 60px rgba(0,0,0,.28);position:relative}
+.sk-story-tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);white-space:nowrap;
+ background:var(--sk-dark1);color:#fff;border:4px solid var(--sk-card);border-radius:999px;
+ padding:6px 18px;font-weight:900;font-size:13px}
+.sk-story p{margin:0 0 14px;font-size:15px;line-height:1.9}
+.sk-story p:last-child{margin-bottom:0}
+.sk-punch{font-size:clamp(17px,2.8vw,20px);font-weight:900;line-height:1.7;color:var(--sk-accent);
+ border-bottom:3px solid var(--sk-soft);display:inline;padding-bottom:2px}
+.sk-habit{background:var(--sk-warm);border-left:5px solid var(--sk-warm-b);
+ border-radius:0 var(--sk-radius-sm) var(--sk-radius-sm) 0;
+ padding:15px 18px;color:var(--sk-warm-ink);font-size:14.5px;line-height:1.85}
+.sk-habit b{color:var(--sk-warm-b)}
+/* -- オファー＋CTA -- */
+.sk-cta{background:var(--sk-surface);padding:60px 16px 56px;font-family:var(--sk-font);
+ line-height:1.85;font-size:16px;color:var(--sk-ink)}
+.sk-bridge{margin:0 auto 22px;text-align:center;color:var(--sk-ink);opacity:.86;
+ font-size:clamp(15px,2.2vw,17px);font-weight:700;line-height:1.95}
+.sk-offer{width:min(560px,100%);margin:0 auto 24px;background:var(--sk-card);border:1px solid var(--sk-line);
+ border-radius:var(--sk-radius);padding:30px 24px;box-shadow:var(--sk-shadow);position:relative}
+.sk-offer-badge{position:absolute;top:-13px;right:18px;background:var(--sk-warm-b);color:#fff;font-weight:900;
+ font-size:12px;padding:6px 14px;border-radius:999px}
+.sk-offer h3{margin:0 0 18px;text-align:center;font-family:var(--sk-serif);
+ font-size:clamp(21px,3.6vw,27px);font-weight:700;line-height:1.4;color:var(--sk-ink)}
+.sk-cover{width:min(320px,100%);margin:0 auto 20px}
+.sk-cover img{width:100%;border-radius:12px;display:block}
+.sk-toc{background:var(--sk-surface);border:1px solid var(--sk-line);border-radius:var(--sk-radius-sm);padding:20px 22px}
+.sk-toc-head{text-align:center;font-weight:900;font-size:14px;padding-bottom:11px;margin:0 0 6px;
+ border-bottom:1px solid var(--sk-line);color:var(--sk-ink)}
+.sk-toc ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.sk-toc li{display:flex;gap:10px;font-size:14px;line-height:1.7;color:var(--sk-ink)}
+.sk-toc li:before{content:"\25C6";color:var(--sk-accent2);flex:none}
+.sk-toc li b{flex:none;white-space:nowrap;min-width:3.6em}
+.sk-offer-close{margin:20px 0 0;font-size:14px;color:var(--sk-muted);line-height:1.9}
+.sk-offer-close strong{color:var(--sk-accent)}
+.sk-line-btn{display:flex;flex-direction:column;align-items:center;gap:5px;width:min(560px,100%);margin:0 auto;
+ padding:19px 20px;border-radius:var(--sk-radius);background:var(--sk-green);color:#fff;font-weight:900;
+ text-decoration:none;box-shadow:0 16px 40px rgba(6,199,85,.30);position:relative;transition:transform .2s ease}
+.sk-line-btn:hover{transform:translateY(-3px)}
+.sk-line-btn:active{transform:translateY(0) scale(.99)}
+.sk-line-btn:after{content:"";position:absolute;inset:0;border-radius:inherit;
+ animation:skPulse 2.4s ease-out infinite;pointer-events:none}
+@keyframes skPulse{0%{box-shadow:0 0 0 0 rgba(9,126,42,.35)}70%{box-shadow:0 0 0 14px rgba(9,126,42,0)}
+ 100%{box-shadow:0 0 0 0 rgba(9,126,42,0)}}
+.sk-tap{font-size:12px;font-weight:800;background:rgba(255,255,255,.22);padding:3px 13px;border-radius:999px}
+.sk-btn-main{display:flex;align-items:center;gap:10px;font-size:clamp(17px,3vw,21px)}
+.sk-btn-main svg{width:24px;height:24px;flex:none}
+.sk-scarcity{width:min(560px,100%);margin:14px auto 0;padding:13px 16px;background:var(--sk-warm);
+ border:1px solid var(--sk-warm-bd);border-radius:var(--sk-radius-sm);color:var(--sk-warm-ink);
+ font-size:12.5px;line-height:1.85}
+.sk-note{text-align:center;color:var(--sk-muted);font-size:12px;margin:12px 0 0}
+/* -- コピー直後のひとこと（離脱ポイント対策）--
+   プロンプトをコピーした瞬間＝読者の目的達成。そこからCTAまで距離があるため、
+   その瞬間だけ画面下に小さく出す。押し売りにならないよう、
+   ページ側の配色を使い、8秒で自動的に消え、×で閉じられる。 */
+.sk-cue{position:fixed;left:50%;bottom:16px;z-index:99999;display:flex;align-items:center;gap:10px;
+ width:min(420px,calc(100% - 24px));padding:12px 14px;border-radius:14px;
+ background:var(--sk-dark1);color:#fff;font-family:var(--sk-font);font-size:13.5px;line-height:1.6;
+ box-shadow:0 14px 40px rgba(0,0,0,.34);text-decoration:none;
+ transform:translate(-50%,18px);opacity:0;pointer-events:none;
+ transition:opacity .28s ease,transform .28s ease}
+.sk-cue.is-on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.sk-cue b{color:var(--sk-hl)}
+.sk-cue .sk-cue-arrow{margin-left:auto;flex:none;font-weight:900;color:var(--sk-hl)}
+.sk-cue-x{position:absolute;top:-9px;right:-9px;width:24px;height:24px;border-radius:50%;border:0;
+ background:var(--sk-dark1);color:rgba(255,255,255,.8);font-size:14px;line-height:1;cursor:pointer;
+ box-shadow:0 4px 12px rgba(0,0,0,.3)}
+@media(prefers-reduced-motion:reduce){.sk-cue{transition:none}}
+/* -- フッター -- */
+.sk-footer{padding:40px 16px 56px;text-align:center;border-top:1px solid var(--sk-line);
+ background:var(--sk-surface);font-family:var(--sk-font);line-height:1.8}
+.sk-footer-ig{display:inline-flex;align-items:center;gap:9px;color:var(--sk-accent2);font-weight:850;
+ font-size:14px;text-decoration:none;margin-bottom:14px}
+.sk-footer-ig:hover{text-decoration:underline}
+.sk-footer-ig svg{width:19px;height:19px}
+.sk-footer p{margin:0 0 4px;font-size:13px;color:var(--sk-muted)}
+.sk-footer .sk-copy{margin:6px 0 0;font-size:11.5px;color:var(--sk-muted);opacity:.75}
+.sk-footer .sk-tagline{margin:0 0 12px;font-size:12px;color:var(--sk-muted);opacity:.85;letter-spacing:.03em}
+@media(prefers-reduced-motion:reduce){.sk-line-btn:after{animation:none}}
+@media(max-width:600px){
+ .sk-br{display:inline}
+ .sk-sec{padding:44px 14px}
+ .sk-gap{padding:48px 14px}
+ .sk-cta{padding:48px 14px 44px}
+ .sk-story{padding:28px 17px 22px;margin-top:38px}
+ .sk-story-tag{font-size:11.5px;padding:6px 14px}
+ .sk-offer{padding:24px 16px}
+ .sk-toc{padding:16px 14px}
+ .sk-gap-list{padding:17px 16px}
+ .sk-author{padding:9px 11px;gap:11px}
+ .sk-author img{width:46px;height:46px}
+ .sk-footer{padding:34px 14px 48px}
+}
+
+/* --- このページ用のテーマ上書き --- */
+:root{ --sk-ink:#2E2429; --sk-muted:#7C6F75; --sk-accent:#D14B72; --sk-accent2:#3F6FA8; --sk-line:#F0E2E6; --sk-page:#FFFAFB; --sk-card:#FFFFFF; --sk-surface:#FBF1F4; --sk-soft:#FBE4EA; --sk-warm:#FFF1E9; --sk-warm-bd:#F3CDB6; --sk-warm-ink:#5E3B2C; --sk-warm-b:#C9673A; --sk-dark1:#241A1E; --sk-dark2:#432833; --sk-hl:#FFB4C8; --sk-radius:22px; --sk-radius-sm:16px; --sk-shadow:0 14px 38px rgba(46,36,41,.10); --sk-wrap:680px; --sk-font:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif; --sk-serif:"Noto Serif JP","Yu Mincho",serif; }
+
+/* ===== fresh kit（新規ページ用の本文ブロック） =====
+   ギャラリーの横スクロールが body 全体の横スクロールに漏れないよう、
+   このページ独自にリセットを持たせる（既存ページの reset に依存しない）。 */
+*,*::before,*::after{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+.fk-hero{position:relative;background:linear-gradient(160deg,var(--sk-dark1) 0%,var(--sk-dark2) 100%);
+ color:#fff;padding:52px 16px 44px;text-align:center;font-family:var(--sk-font);overflow:hidden}
+.fk-hero-bg{position:absolute;inset:0;z-index:0}
+.fk-hero-bg img{width:100%;height:100%;object-fit:cover;display:block}
+.fk-hero-bg::after{content:"";position:absolute;inset:0;
+ background:linear-gradient(180deg,rgba(10,12,16,.55) 0%,rgba(10,12,16,.72) 55%,rgba(10,12,16,.88) 100%)}
+.fk-hero-badge,.fk-hero h1,.fk-hero-sub,.fk-metrics{position:relative;z-index:1}
+.fk-hero-badge{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);
+ border-radius:999px;font-size:11.5px;letter-spacing:.14em;padding:5px 16px;margin-bottom:18px;
+ backdrop-filter:blur(2px)}
+.fk-hero h1{font-family:var(--sk-serif);font-size:clamp(24px,5.6vw,34px);font-weight:700;line-height:1.5;
+ margin:0 0 14px;text-shadow:0 2px 16px rgba(0,0,0,.4)}
+.fk-hero h1 em{font-style:normal;color:var(--sk-hl)}
+.fk-hero-sub{font-size:clamp(13.5px,2.6vw,15.5px);line-height:1.9;color:rgba(255,255,255,.9);
+ max-width:520px;margin:0 auto;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.fk-metrics{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:22px}
+.fk-metrics span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);border-radius:999px;
+ padding:6px 15px;font-size:12.5px}
+.fk-metrics span b{color:var(--sk-hl);font-weight:900;margin-right:3px}
+
+.fk-flow{padding:44px 16px 8px;font-family:var(--sk-font)}
+.fk-flow-diagram{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px;
+ background:var(--sk-card);border:1px solid var(--sk-line);border-radius:var(--sk-radius);
+ padding:26px 16px;box-shadow:var(--sk-shadow);max-width:640px;margin:0 auto}
+.fk-flow-node{flex:1 1 120px;max-width:150px;text-align:center}
+.fk-flow-icon{display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.fk-flow-icon-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+ background:var(--sk-soft);color:var(--sk-accent);font-weight:900;font-size:15px}
+.fk-flow-tool{font-size:11px;font-weight:900;color:var(--sk-accent2);letter-spacing:.02em}
+.fk-flow-name{font-size:12.5px;font-weight:700;color:var(--sk-ink);margin-top:1px}
+.fk-flow-arrow{flex:0 0 auto;font-size:1.3rem;color:var(--sk-line);font-weight:700;align-self:center}
+@media(max-width:600px){.fk-flow-diagram{flex-direction:column}.fk-flow-arrow{transform:rotate(90deg)}
+ .fk-flow-node{max-width:none}}
+
+.fk-steps{padding:48px 16px 8px;font-family:var(--sk-font)}
+.fk-steps-wrap{max-width:640px;margin:0 auto;position:relative}
+.fk-steps-wrap:before{content:"";position:absolute;left:23px;top:10px;bottom:10px;width:2px;
+ background:var(--sk-line)}
+.fk-step{position:relative;display:flex;gap:18px;padding-bottom:30px}
+.fk-step:last-child{padding-bottom:0}
+.fk-step-num{flex:0 0 48px;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;
+ justify-content:center;font-weight:900;font-size:17px;color:#fff;background:var(--sk-accent);
+ position:relative;z-index:1;box-shadow:var(--sk-shadow)}
+.fk-step-body{flex:1;min-width:0;background:var(--sk-card);border:1px solid var(--sk-line);
+ border-radius:var(--sk-radius-sm);padding:18px 20px;margin-top:2px}
+.fk-step-label{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:900;letter-spacing:.1em;
+ color:var(--sk-accent2);text-transform:uppercase;margin-bottom:4px}
+.fk-step-icon{display:inline-flex;flex:none}
+.fk-step-title{font-family:var(--sk-serif);font-size:17px;font-weight:700;margin-bottom:9px;color:var(--sk-ink)}
+.fk-step-text{font-size:14.5px;line-height:1.9;color:var(--sk-ink);margin-bottom:10px}
+.fk-step-text:last-child{margin-bottom:0}
+.fk-checklist{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.fk-checklist span{font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:999px;
+ background:var(--sk-surface);color:var(--sk-ink);border:1px solid var(--sk-line)}
+/* 折りたたみ式プロンプトボックス（2026-08-19〜）。長いプロンプトが常時全文
+   表示されるとページが間延びして最後まで読まれなくなる、との指摘で開閉式に変更。
+   コピーボタンはsummary内＝常に見える位置に置き、閉じたままコピーできるようにする。 */
+.fk-prompt{background:var(--sk-dark1);color:#E7E9EC;border-radius:12px;margin-top:12px;overflow:hidden}
+.fk-prompt-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 13px;
+ border-bottom:1px solid rgba(255,255,255,.13);font-size:11px;letter-spacing:.06em;cursor:pointer;
+ list-style:none}
+.fk-prompt-h::-webkit-details-marker{display:none}
+.fk-prompt-h>span:first-child{color:var(--sk-hl);font-weight:900;overflow:hidden;text-overflow:ellipsis;
+ white-space:nowrap}
+.fk-prompt-h-right{display:flex;align-items:center;gap:9px;flex:none}
+.fk-prompt-copy{background:rgba(255,255,255,.14);border:0;color:#fff;border-radius:999px;
+ padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer}
+.fk-prompt-arrow{color:rgba(255,255,255,.55);font-size:11px;transition:transform .2s ease}
+.fk-prompt[open] .fk-prompt-arrow{transform:rotate(180deg)}
+.fk-prompt pre{margin:0;padding:14px;font-size:12px;line-height:1.95;white-space:pre-wrap;
+ font-family:var(--sk-font);color:#DFE2E6}
+.fk-prompt pre i{font-style:normal;color:var(--sk-hl)}
+.fk-step-img{width:100%;border-radius:12px;margin-top:12px;overflow:hidden;border:1px solid var(--sk-line)}
+.fk-step-img img{width:100%;display:block}
+.fk-step-img-cap{font-size:11.5px;color:var(--sk-muted);text-align:center;padding:6px 4px 0}
+.fk-step-img-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media(max-width:520px){.fk-step-img-grid{grid-template-columns:1fr}}
+
+.fk-step0{max-width:640px;margin:0 auto 30px;background:var(--sk-surface);border:1px dashed var(--sk-line);
+ border-radius:var(--sk-radius-sm);overflow:hidden}
+.fk-step0 summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:16px 20px;
+ font-family:var(--sk-font);user-select:none}
+.fk-step0 summary::-webkit-details-marker{display:none}
+.fk-step0-badge{flex:none;font-size:11px;font-weight:900;letter-spacing:.06em;color:#fff;background:var(--sk-accent);
+ padding:4px 10px;border-radius:999px}
+.fk-step0-title{flex:1;font-weight:800;font-size:14.5px;color:var(--sk-ink)}
+.fk-step0-arrow{flex:none;color:var(--sk-muted);transition:transform .2s ease}
+.fk-step0[open] .fk-step0-arrow{transform:rotate(180deg)}
+.fk-step0-body{padding:0 20px 20px;font-family:var(--sk-font)}
+
+/* デスクトップ既定: 縦積みで3枚とも普通にスクロールして全部見える（スワイプ不要）。
+   狭い画面（スマホ）だけ横スワイプのカルーセルに切り替える。 */
+.fk-pcard-track{display:flex;flex-direction:column;gap:14px;padding:14px 2px 8px}
+.fk-pcard{flex:none;width:100%;max-width:none;background:var(--sk-card);
+ border:1px solid var(--sk-line);border-radius:var(--sk-radius-sm);padding:16px 18px}
+.fk-pcard-tag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.04em;color:var(--sk-accent2);
+ background:var(--sk-soft);padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.fk-pcard-title{font-family:var(--sk-serif);font-size:16px;font-weight:700;margin-bottom:6px;color:var(--sk-ink)}
+.fk-pcard-text{font-size:13.5px;line-height:1.85;color:var(--sk-ink);margin-bottom:8px}
+.fk-pcard-hint{display:none;text-align:center;font-size:11.5px;font-weight:800;color:var(--sk-accent2);margin:2px 0 4px}
+@media(max-width:700px){
+ .fk-pcard-hint{display:block}
+ .fk-pcard-track{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none}
+ .fk-pcard-track::-webkit-scrollbar{display:none}
+ .fk-pcard{flex:0 0 86%;max-width:420px;scroll-snap-align:center}
+}
+
+.fk-note{max-width:640px;margin:0 auto;padding:16px 18px;border-left:4px solid var(--sk-warm-b);
+ background:var(--sk-warm);border-radius:0 var(--sk-radius-sm) var(--sk-radius-sm) 0;
+ color:var(--sk-warm-ink);font-size:13.5px;line-height:1.9}
+.fk-note b{color:var(--sk-warm-b)}
+.fk-note-section{padding:40px 16px 8px;font-family:var(--sk-font)}
+.fk-note + .fk-note{margin-top:12px}
+
+.fk-faq{padding:44px 16px 8px;font-family:var(--sk-font)}
+.fk-faq-wrap{max-width:640px;margin:0 auto;display:grid;gap:10px}
+.fk-faq-item{background:var(--sk-card);border:1px solid var(--sk-line);border-radius:var(--sk-radius-sm);
+ padding:16px 18px}
+.fk-faq-q{display:flex;gap:10px;font-weight:900;font-size:14.5px;color:var(--sk-ink);margin-bottom:6px}
+.fk-faq-q span{flex:none;width:22px;height:22px;border-radius:50%;background:var(--sk-accent);color:#fff;
+ font-size:11px;display:flex;align-items:center;justify-content:center}
+.fk-faq-a{font-size:13.5px;line-height:1.85;color:var(--sk-muted);padding-left:32px}
+.fk-faq-item.is-fold{padding:0}
+.fk-faq-item.is-fold>summary{list-style:none;cursor:pointer;padding:15px 16px;margin:0;
+ align-items:center}
+.fk-faq-item.is-fold>summary::-webkit-details-marker{display:none}
+.fk-faq-item.is-fold>summary::after{content:"\25BE";margin-left:auto;flex:none;
+ color:var(--sk-accent);font-size:11px;transition:transform .2s}
+.fk-faq-item.is-fold[open]>summary::after{transform:rotate(180deg)}
+.fk-faq-item.is-fold>.fk-faq-a{padding:0 16px 15px 48px}
+
+.fk-section-eyebrow{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--sk-accent2);margin-bottom:6px;text-align:center}
+.fk-section-title{font-family:var(--sk-serif);font-size:clamp(19px,3.6vw,24px);font-weight:700;
+ margin-bottom:20px;text-align:center;color:var(--sk-ink)}
+
+.fk-gallery{padding:44px 0 8px;font-family:var(--sk-font)}
+.fk-gallery-lead{max-width:640px;margin:0 auto 18px;padding:0 16px;text-align:center;color:var(--sk-muted);
+ font-size:13.5px;line-height:1.85}
+.fk-gallery-hint{max-width:640px;margin:0 auto 14px;padding:0 16px;text-align:center;color:var(--sk-accent2);
+ font-size:11.5px;font-weight:800;letter-spacing:.04em}
+.fk-gallery-track{max-width:640px;margin:0 auto;display:flex;gap:14px;overflow-x:auto;
+ scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 16px 14px;scrollbar-width:none}
+.fk-gallery-track::-webkit-scrollbar{display:none}
+.fk-gallery-item{flex:0 0 68%;max-width:260px;scroll-snap-align:center;border-radius:var(--sk-radius-sm);
+ overflow:hidden;background:var(--sk-card);border:1px solid var(--sk-line);box-shadow:var(--sk-shadow);
+ cursor:zoom-in}
+.fk-gallery-item img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+.fk-gallery-cap{padding:8px 6px;text-align:center;font-size:11px;font-weight:800;color:var(--sk-muted)}
+.fk-gallery-lightbox{position:fixed;inset:0;z-index:99998;background:rgba(20,16,12,.9);
+ display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.fk-gallery-lightbox.is-on{display:flex}
+.fk-gallery-lightbox img{max-width:min(92vw,520px);max-height:80vh;width:100%;border-radius:14px;
+ object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.fk-gallery-lightbox-x{position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;
+ border:0;background:rgba(255,255,255,.16);color:#fff;font-size:18px;cursor:pointer}
+
+/* ===== spec_kit ===== */
+.sp-sec{padding:56px 16px;font-family:var(--sk-font);color:var(--sk-ink);
+ box-sizing:border-box;width:100%}
+.sp-sec *,.sp-sec *:before,.sp-sec *:after{box-sizing:border-box}
+.sp-wrap{width:min(var(--sk-wrap),100%);margin:0 auto}
+.sp-eyebrow{margin:0 0 10px;text-align:center;font-size:11.5px;font-weight:900;
+ letter-spacing:.14em;color:var(--sk-accent2);text-transform:uppercase}
+.sp-title{margin:0 0 14px;text-align:center;font-weight:900;line-height:1.55;
+ font-size:clamp(19px,4.2vw,25px);color:var(--sk-ink)}
+.sp-lead{margin:0 auto 26px;max-width:34em;text-align:center;line-height:2;
+ font-size:clamp(14px,2.5vw,15.5px);color:var(--sk-muted)}
+.sp-lead strong{color:var(--sk-ink);font-weight:900}
+.sp-src{margin:16px 0 0;text-align:center;font-size:11.5px;line-height:1.9;
+ color:var(--sk-muted)}
+.sp-src a{color:var(--sk-accent2);font-weight:700}
+
+/* 数値の対比 */
+.sp-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.sp-stat{background:var(--sk-card);border:1px solid var(--sk-line);
+ border-radius:var(--sk-radius);padding:20px 16px;text-align:center;
+ box-shadow:var(--sk-shadow)}
+.sp-stat-k{margin:0 0 12px;font-size:12.5px;font-weight:900;color:var(--sk-muted)}
+.sp-stat-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.sp-stat-old{font-size:clamp(15px,3vw,17px);font-weight:800;color:var(--sk-muted);
+ text-decoration:line-through;text-decoration-thickness:2px;opacity:.75}
+.sp-stat-ar{color:var(--sk-accent);font-weight:900;font-size:15px}
+.sp-stat-new{font-size:clamp(23px,5.4vw,30px);font-weight:900;color:var(--sk-accent);
+ line-height:1.2;letter-spacing:-.01em}
+.sp-stat-n{margin:10px 0 0;font-size:12px;line-height:1.85;color:var(--sk-muted)}
+
+/* 規格表 */
+.sp-table{background:var(--sk-card);border:1px solid var(--sk-line);
+ border-radius:var(--sk-radius);box-shadow:var(--sk-shadow);overflow:hidden}
+.sp-table-cap{margin:0;padding:15px 18px;background:var(--sk-surface);
+ border-bottom:1px solid var(--sk-line);font-size:13px;font-weight:900;
+ color:var(--sk-ink);letter-spacing:.01em}
+.sp-row{display:flex;gap:12px;padding:13px 18px;border-bottom:1px solid var(--sk-line);
+ font-size:13.5px;line-height:1.8}
+.sp-row:last-child{border-bottom:0}
+.sp-row dt{flex:0 0 40%;margin:0;font-weight:800;color:var(--sk-muted)}
+.sp-row dd{flex:1;margin:0;font-weight:800;color:var(--sk-ink)}
+.sp-row dd b{color:var(--sk-accent);font-weight:900}
+@media(max-width:400px){
+ .sp-row{flex-direction:column;gap:3px}
+ .sp-row dt{flex:none}
+}
+
+/* 2つのやり方を比べる */
+.sp-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.sp-cmp{grid-template-columns:1fr}}
+.sp-col{border-radius:var(--sk-radius);padding:22px 18px 20px;border:1px solid var(--sk-line);
+ background:var(--sk-card);display:flex;flex-direction:column}
+.sp-col.is-win{border:2px solid var(--sk-accent);background:var(--sk-soft);
+ box-shadow:var(--sk-shadow)}
+.sp-col-tag{align-self:flex-start;font-size:11px;font-weight:900;letter-spacing:.06em;
+ padding:4px 11px;border-radius:999px;background:var(--sk-surface);color:var(--sk-muted)}
+.sp-col.is-win .sp-col-tag{background:var(--sk-accent);color:#fff}
+.sp-col-h{margin:12px 0 4px;font-size:clamp(15.5px,3.2vw,17.5px);font-weight:900;
+ line-height:1.6;color:var(--sk-ink)}
+.sp-col.is-win .sp-col-h{color:var(--sk-ink)}
+.sp-col-sub{margin:0 0 14px;font-size:12.5px;font-weight:800;color:var(--sk-muted)}
+.sp-col ol{margin:0;padding:0 0 0 1.15em;list-style:decimal}
+.sp-col li{margin:0 0 9px;font-size:13.5px;line-height:1.85;color:var(--sk-ink);opacity:.9}
+.sp-col li:last-child{margin-bottom:0}
+.sp-col li b{font-weight:900;opacity:1}
+.sp-col.is-win li{color:var(--sk-ink);opacity:1}
+.sp-col-foot{margin:16px 0 0;padding-top:14px;border-top:1px dashed var(--sk-line);
+ font-size:12.5px;font-weight:900;line-height:1.8;color:var(--sk-muted)}
+.sp-col.is-win .sp-col-foot{border-top-color:var(--sk-accent);color:var(--sk-accent)}
+
+/* 流れを止めて置く注意 */
+.sp-callout{width:min(560px,100%);margin:0 auto;background:var(--sk-warm);
+ border:1px solid var(--sk-warm-bd);border-radius:var(--sk-radius);
+ padding:22px 20px;color:var(--sk-warm-ink)}
+.sp-callout>b{display:block;margin:0 0 8px;font-size:14.5px;font-weight:900;
+ color:var(--sk-warm-b)}
+.sp-callout p{margin:0;font-size:13.5px;line-height:2;font-weight:700}
+.sp-callout p b{display:inline;color:var(--sk-warm-b);font-weight:900}
+
+/* 画像を並べて見せる（実物の証拠） */
+.sp-shots{display:grid;gap:14px}
+.sp-shot{background:var(--sk-card);border:1px solid var(--sk-line);
+ border-radius:var(--sk-radius);overflow:hidden;box-shadow:var(--sk-shadow)}
+.sp-shot img{display:block;width:100%;height:auto}
+.sp-shot p{margin:0;padding:12px 16px;border-top:1px solid var(--sk-line);
+ background:var(--sk-surface);font-size:12.5px;line-height:1.8;font-weight:800;
+ color:var(--sk-muted)}
+.sp-shot p b{color:var(--sk-ink);font-weight:900}
+/* ルートの入口（#28の「ここから道が2つに分かれる」） */
+.sp-route{padding-bottom:22px}
+.sp-route-badge{display:inline-block;font-size:11.5px;font-weight:900;letter-spacing:.1em;
+ padding:5px 14px;border-radius:999px;background:var(--sk-surface);color:var(--sk-muted)}
+.sp-route.is-main .sp-route-badge{background:var(--sk-accent);color:#fff}
+.sp-route-head{text-align:center}
+.sp-route-title{margin:14px 0 6px;font-weight:900;line-height:1.5;
+ font-size:clamp(21px,4.8vw,28px);color:var(--sk-ink)}
+.sp-route-path{margin:0 0 18px;font-size:13px;font-weight:900;color:var(--sk-accent2);
+ letter-spacing:.02em}
+.sp-route-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}
+.sp-route-meta span{font-size:12px;font-weight:800;color:var(--sk-muted);
+ background:var(--sk-card);border:1px solid var(--sk-line);border-radius:999px;
+ padding:7px 14px}
+.sp-route-meta span b{color:var(--sk-ink);font-weight:900}
+/* ルート切り替えタブ（#28。縦に全部並べると長すぎるので、押した道だけ出す） */
+.sp-tabs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+@media(max-width:560px){.sp-tabs{grid-template-columns:1fr}}
+.sp-tab{appearance:none;-webkit-appearance:none;text-align:left;cursor:pointer;
+ font-family:inherit;background:var(--sk-card);border:2px solid var(--sk-line);
+ border-radius:var(--sk-radius);padding:18px 18px 16px;transition:.18s;
+ display:flex;flex-direction:column;gap:5px;position:relative}
+.sp-tab:hover{border-color:var(--sk-accent2)}
+.sp-tab-k{font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--sk-muted)}
+.sp-tab-h{font-size:clamp(16px,3.4vw,18.5px);font-weight:900;color:var(--sk-ink);line-height:1.5}
+.sp-tab-s{font-size:12.5px;font-weight:800;color:var(--sk-muted);line-height:1.7}
+.sp-tab[aria-selected="true"]{border-color:var(--sk-accent);background:var(--sk-soft);
+ box-shadow:var(--sk-shadow)}
+.sp-tab[aria-selected="true"] .sp-tab-k{color:var(--sk-accent)}
+.sp-tab[aria-selected="true"]::after{content:"";position:absolute;left:50%;bottom:-13px;
+ width:20px;height:20px;margin-left:-10px;background:var(--sk-soft);
+ border-right:2px solid var(--sk-accent);border-bottom:2px solid var(--sk-accent);
+ transform:rotate(45deg);border-radius:0 0 5px 0}
+@media(max-width:560px){.sp-tab[aria-selected="true"]::after{display:none}}
+.sp-panel[hidden]{display:none}
+
+/* フォルダの中身を見せる（文字だけだと絶対に伝わらないところ用） */
+.sp-tree{width:min(420px,100%);margin:0 auto;background:var(--sk-dark1);
+ border-radius:var(--sk-radius);padding:20px 22px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+ font-size:13px;line-height:2.05;color:#DCD6F0}
+.sp-tree b{color:var(--sk-hl);font-weight:700}
+.sp-tree i{font-style:normal;color:#7E769B}
+.sp-tree-cap{margin:12px auto 0;width:min(420px,100%);font-size:12px;line-height:1.85;
+ font-weight:800;color:var(--sk-muted);text-align:center}
+
+/* スマホだけに出す、追従の公式LINEボタン。
+   最後まで読み切らずに離脱する人にも入口を残しておくためのもの。
+   ただし「常に出しっぱなし」は邪魔なので、
+   ①1画面ぶんスクロールするまで出さない ②本物のCTAが画面に入ったら消える
+   ③×で閉じたらそのセッション中は二度と出ない、の3点で抑えている。
+   PC(701px以上)では出さない（本文の脇に余白があるので邪魔になるだけ）。*/
+.sp-dock{position:fixed;left:50%;bottom:12px;z-index:99998;
+ display:flex;align-items:center;gap:11px;
+ width:min(520px,calc(100% - 20px));padding:13px 16px;
+ border-radius:999px;background:var(--sk-green);color:#fff;
+ font-family:var(--sk-font);text-decoration:none;
+ box-shadow:0 12px 34px rgba(6,199,85,.36);
+ transform:translate(-50%,120%);opacity:0;pointer-events:none;
+ transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.3,1)}
+.sp-dock.is-on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.sp-dock svg{width:22px;height:22px;flex:none}
+.sp-dock-t{flex:1;min-width:0;font-size:14.5px;font-weight:900;line-height:1.4}
+.sp-dock-t small{display:block;font-size:11px;font-weight:800;opacity:.85;letter-spacing:.02em}
+.sp-dock-a{flex:none;font-size:16px;font-weight:900}
+.sp-dock-x{position:absolute;top:-8px;right:2px;width:26px;height:26px;border-radius:50%;
+ border:0;background:var(--sk-dark1);color:rgba(255,255,255,.85);font-size:14px;line-height:1;
+ cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+@media(min-width:701px){.sp-dock{display:none}}
+@media(prefers-reduced-motion:reduce){.sp-dock{transition:none}}
+/* 追従ボタンが出ている間は、フッターの最後が隠れないように床を上げる */
+body.sp-has-dock{padding-bottom:78px}
+@media(min-width:701px){body.sp-has-dock{padding-bottom:0}}
+/* コピー直後のひとこと(sk-cue)と重ならないように、そちらを上へ逃がす */
+body.sp-has-dock .sk-cue{bottom:80px}
+
+/* スクロールで1枚ずつ入ってくる動き。JSが無ければ何も起きない（=常時表示）。
+   「全部を真面目に読む人ばかりではない」ので、目を留める理由を足す。 */
+.sp-rv{opacity:0;transform:translateY(14px);
+ transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.3,1)}
+.sp-rv.is-in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.sp-rv,.sp-rv.is-in{opacity:1;transform:none;transition:none}}
+
+/* 「必要な人だけ開く」ための折りたたみ（規格表など） */
+.sp-fold{background:var(--sk-card);border:1px solid var(--sk-line);
+ border-radius:var(--sk-radius);overflow:hidden;box-shadow:var(--sk-shadow)}
+.sp-fold>summary{list-style:none;cursor:pointer;padding:17px 20px;font-size:13.5px;
+ font-weight:900;color:var(--sk-ink);display:flex;align-items:center;
+ justify-content:space-between;gap:12px}
+.sp-fold>summary::-webkit-details-marker{display:none}
+.sp-fold>summary::after{content:"\25BE";color:var(--sk-accent);font-size:12px;
+ transition:transform .2s;flex:none}
+.sp-fold[open]>summary::after{transform:rotate(180deg)}
+.sp-fold[open]>summary{border-bottom:1px solid var(--sk-line)}
+.sp-fold-body{padding:16px 14px 4px}
+.sp-fold-body .sp-table{box-shadow:none}
+
+/* ===== 終盤ブロック改修（2026-08-24 第2稿） ===== */
+.sk-diff{background:var(--sk-page);padding:66px 16px 60px;font-family:var(--sk-font);
+ color:var(--sk-ink);width:100%;max-width:100%;flex:0 0 100%;box-sizing:border-box}
+.sk-diff *,.sk-diff *:before,.sk-diff *:after{box-sizing:border-box}
+.sk-diff .sk-wrap{width:min(var(--sk-wrap),100%);margin:0 auto}
+.sk-d-p{margin:0 auto 32px;text-align:center;line-height:2.05;
+ font-size:clamp(15px,2.4vw,16.5px);color:var(--sk-ink);opacity:.88}
+.sk-d-p:last-child{margin-bottom:0}
+.sk-d-p b{color:var(--sk-ink);font-weight:900}
+.sk-bridge b{color:var(--sk-accent);font-weight:900}
+.sk-bridge strong{color:var(--sk-ink);font-weight:900}
+
+/* 質問カード */
+.sk-d-q{width:min(500px,100%);margin:0 auto 38px;background:var(--sk-card);
+ border:1px solid var(--sk-line);border-radius:var(--sk-radius);
+ padding:36px 22px 30px;box-shadow:var(--sk-shadow);position:relative;text-align:center}
+.sk-d-q-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;
+ background:var(--sk-ink);color:#fff;border:4px solid var(--sk-page);border-radius:999px;
+ padding:5px 16px;font-size:11.5px;font-weight:900;letter-spacing:.02em}
+.sk-d-q p{margin:0;font-weight:800;line-height:1.9;color:var(--sk-ink);
+ font-size:clamp(16.5px,3.6vw,20px)}
+.sk-d-q b{color:var(--sk-accent);border-bottom:3px solid var(--sk-soft);padding-bottom:2px}
+
+/* 結論 */
+.sk-d-lead{margin:0 auto 20px;text-align:center;font-weight:900;line-height:1.85;
+ color:var(--sk-ink);font-size:clamp(17px,3.4vw,21px)}
+.sk-d-ans{width:min(500px,100%);margin:0 auto 26px;background:var(--sk-soft);
+ border-radius:var(--sk-radius);padding:30px 20px;text-align:center;
+ color:var(--sk-accent);font-weight:800;line-height:1.95;
+ font-size:clamp(15.5px,2.9vw,18px)}
+.sk-d-ans b{display:inline-block;font-weight:900;margin:4px 0 6px;
+ font-size:clamp(18.5px,4vw,23px);line-height:1.6;
+ border-bottom:3px solid rgba(0,0,0,.10);padding-bottom:3px}
+.sk-d-close{margin:0 auto;text-align:center;font-weight:800;line-height:1.9;
+ color:var(--sk-muted);font-size:clamp(14.5px,2.6vw,16.5px)}
+
+/* 冒頭の「最後まで読んでほしい」一行 */
+.sk-lastnote{margin:18px auto 0;width:min(560px,100%);text-align:center;
+ font-size:13.5px;line-height:1.95;color:var(--sk-muted);font-weight:700}
+.sk-lastnote strong{color:var(--sk-accent);font-weight:900}
+
+/* LINEボタンの下に置く教科書（おまけ扱い） */
+.sk-extra{width:min(500px,100%);margin:24px auto 0;padding:22px 18px 0;
+ border-top:1px solid var(--sk-line);text-align:center;
+ font-size:14px;line-height:1.95;color:var(--sk-muted)}
+.sk-extra b{color:var(--sk-ink);font-weight:900}
+.sk-after-btn{margin:14px auto 0;text-align:center;font-size:13.5px;font-weight:800;
+ color:var(--sk-ink);opacity:.8}
+
+/* スクロール連動（JSが動く環境だけ） */
+html.sk-js .sk-r{opacity:0;transform:translateY(16px)}
+html.sk-js .sk-r.is-in{opacity:1;transform:none}
+.sk-r{transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+@media (prefers-reduced-motion:reduce){
+ html.sk-js .sk-r{opacity:1;transform:none}
+ .sk-r{transition:none}
+}
+/* 既存ストーリーの行間を少しゆるめる */
+.sk-story p{margin-bottom:17px}
+@media(max-width:520px){
+ .sk-diff{padding:50px 14px 46px}
+ .sk-d-q{padding:30px 16px 24px}
+ .sk-d-p{margin-bottom:26px}
+}
+
+/* プロンプト見出しが狭い画面で「…」に切れてしまうので、折り返しを許可する。
+   共通キット(fresh_kit)はデプロイ済み25本が使っているので触らず、ページ側で上書きする。 */
+.fk-prompt-h>span:first-child{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.55}
+</style>
+</head>
+<body>
+
+<header class="fk-hero">
+ <div class="fk-hero-bg"><img src="assets/hero.jpg" alt="机の上のスマートフォンに、犬のキャラクターのLINEスタンプが並んで表示されている"></div>
+ 
+ <h1>スマホの中の写真1枚が、<br><em>売り物のLINEスタンプになる。</em></h1>
+ 
+ 
+</header>
+
+<section class="sk-sec">
+ <div class="sk-wrap">
+  <div class="sk-head"><h2 class="sk-h">必要なのは、<br class="sk-br">スマホと写真1枚だけです。</h2></div>
+  <p class="sk-doubt-lead">やってみたい気持ちはあっても、こう思いませんか。</p>
+  <div class="sk-doubts">
+  <div class="sk-doubt"><span class="sk-no">01</span><p>絵が描けないのに、売り物になるスタンプが作れるわけがない</p></div>
+  <div class="sk-doubt"><span class="sk-no">02</span><p>パソコンを持っていないから、自分には無理なんじゃないか</p></div>
+  <div class="sk-doubt"><span class="sk-no">03</span><p>売るとなると、手続きが大変そう</p></div>
+  </div>
+  <div class="sk-answer">どれも要りません。描くのは<strong>ChatGPT</strong>、切り抜きも申請も<strong>LINE公式の無料アプリ</strong>。<br><strong>最初から最後まで、スマホの中だけ</strong>で終わります。</div>
+ </div>
+</section>
+<main>
+
+<section class="sp-sec">
+ <div class="sp-wrap">
+  <p class="sp-eyebrow">なぜ、いまなのか</p><h2 class="sp-title">2026年7月、スタンプの値段が<br class="sk-br">上がりました</h2><p class="sp-lead">動画で「報酬額が上がった」と話したのは、これのことです。<br><strong>2026年7月1日から、静止画のスタンプ・絵文字が値上げ</strong>されました。売値が上がれば、入ってくる金額も上がります。</p>
+  <div class="sp-stats">
+   <div class="sp-stat">
+    <p class="sp-stat-k">クリエイターズスタンプ（静止画）<br>LINE STORE</p>
+    <div class="sp-stat-row"><span class="sp-stat-old">120円</span><span class="sp-stat-ar">&rarr;</span><span class="sp-stat-new">190円</span></div>
+    <p class="sp-stat-n">スタンプショップでは 50コイン → 70コイン</p>
+   </div>
+   <div class="sp-stat">
+    <p class="sp-stat-k">クリエイターズ絵文字（静止画）<br>LINE STORE</p>
+    <div class="sp-stat-row"><span class="sp-stat-old">170円</span><span class="sp-stat-ar">&rarr;</span><span class="sp-stat-new">190円</span></div>
+    <p class="sp-stat-n">アニメーションスタンプなどは対象外</p>
+   </div>
+   <div class="sp-stat">
+    <p class="sp-stat-k">1セット売れたときの<br>分配額の目安</p>
+    <div class="sp-stat-row"><span class="sp-stat-old">約42円</span><span class="sp-stat-ar">&rarr;</span><span class="sp-stat-new">約66円</span></div>
+    <p class="sp-stat-n">販売価格の約35%で計算した目安</p>
+   </div>
+  </div>
+  <p class="sp-src">出典：<a href="https://line-sticker.landpress.line.me/Notice_202606price_ja" target="_blank" rel="noopener">LINEスタンプ・絵文字の一部商品価格改定に関するお知らせ</a>（LINE公式）。分配額は<a href="https://creator.line.me/ja/howto/" target="_blank" rel="noopener">LINE Creators Market「ご利用方法」</a>の「手数料30%を除いた売上の50%」という記載から計算した目安です。購入経路や手数料によって実際の金額は変わります。</p>
+ </div>
+</section>
+
+<section class="fk-flow">
+ <p class="fk-section-eyebrow">全体の流れ</p>
+ <h2 class="fk-section-title">使うのは、2つだけ</h2>
+ <div class="fk-flow-diagram">
+  <div class="fk-flow-node">
+    <div class="fk-flow-icon"><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#fff;flex:none;box-shadow:0 1px 4px rgba(0,0,0,.12)"><span style="width:22px;height:22px;color:#10A37F;display:block"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg></span></span></div>
+    <div class="fk-flow-tool">ChatGPT</div>
+    <div class="fk-flow-name">10個入りのイラストを1枚で作る</div>
+   </div>
+   <span class="fk-flow-arrow">&rarr;</span>
+   <div class="fk-flow-node">
+    <div class="fk-flow-icon"><span class="fk-flow-icon-num">2</span></div>
+    <div class="fk-flow-tool">LINEスタンプメーカー</div>
+    <div class="fk-flow-name">切り抜いて、申請まで出す</div>
+   </div>
+ </div>
+</section>
+
+<section class="fk-steps">
+ <div class="fk-steps-wrap">
+  <div class="fk-step">
+    <div class="fk-step-num">1</div>
+    <div class="fk-step-body">
+     <div class="fk-step-label"><span class="fk-step-icon"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#fff;flex:none;box-shadow:0 1px 4px rgba(0,0,0,.12)"><span style="width:13px;height:13px;color:#10A37F;display:block"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg></span></span></span>STEP 1 ／ ChatGPT</div>
+     <div class="fk-step-title">スタンプにしたい写真を1枚アップする</div>
+     <p class="fk-step-text">ChatGPTの入力欄の左にある「＋」から、写真を1枚選ぶだけです。ペットでも自分でも構いません。<strong>写真がなくても大丈夫。</strong>次のプロンプトが、キャラクターを1体作るところから引き受けます。</p>
+     <div class="fk-checklist"><span>顔がはっきり写っているもの</span><span>正面に近い角度</span><span>他人が写り込んでいない写真</span></div>
+     <div class="fk-step-img"><img src="assets/step1-photo.jpg" alt="芝生の上に座るトイプードルの写真。ChatGPTにアップロードするスタンプの元になる写真の例" loading="lazy"></div><p class="fk-step-img-cap">実際にアップした写真。この1枚がキャラクターの元になります</p>
+     
+     <div style="margin-top:14px;text-align:center"><a href="https://chatgpt.com/" target="_blank" rel="noopener" style="display:inline-block;padding:11px 22px;border-radius:999px;background:var(--sk-accent2);color:#fff;font-weight:800;font-size:13.5px;text-decoration:none">ChatGPTにアクセスする &rarr;</a></div>
+    </div>
+   </div>
+   <div class="fk-step">
+    <div class="fk-step-num">2</div>
+    <div class="fk-step-body">
+     <div class="fk-step-label"><span class="fk-step-icon"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#fff;flex:none;box-shadow:0 1px 4px rgba(0,0,0,.12)"><span style="width:13px;height:13px;color:#10A37F;display:block"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg></span></span></span>STEP 2 ／ ChatGPT</div>
+     <div class="fk-step-title">プロンプトを送ると、10個入りのシートが1枚出てくる</div>
+     <p class="fk-step-text">下のプロンプトをそのまま貼って送信。おはよう・ありがとう・OK・了解…と出番の多い10個を、<strong>同じキャラクターのまま1枚に並べて</strong>出してくれます。長押しで保存してください。</p>
+     
+     <div class="fk-step-img"><img src="assets/step2-sheet.jpg" alt="ChatGPTが1枚の画像として出力した、トイプードルのLINEスタンプ10種類。おはよう・ありがとう・OK・了解・おつかれさま・ごめん・お願い・笑・びっくり・ぴえん" loading="lazy"></div><p class="fk-step-img-cap">上の写真1枚から、実際に出てきたのがこれです（背景は透過されています）</p>
+     <details class="fk-prompt">
+      <summary class="fk-prompt-h"><span>スタンプ生成プロンプト</span><span class="fk-prompt-h-right"><button class="fk-prompt-copy" type="button">コピー</button><span class="fk-prompt-arrow">&#9662;</span></span></summary>
+      <pre>あなたは、LINE Creators Market向けの「静止LINEスタンプ素材」を作る画像生成アシスタントです。
+
+これから、LINEスタンプ用のイラストを「10個まとめて1枚の画像」で生成してください。
+
+【最重要ルール】
+
+- 出力は必ず「1枚の画像」のみ
+- その1枚の中に、LINEスタンプ用イラストを10個並べる
+- 配置は「2列×5行」または「5列×2行」で、等間隔に整然と並べる
+- 10個それぞれが独立したスタンプ素材として成立するようにする
+- 各イラスト同士は重ならない
+- 各イラストの周囲に十分な余白を入れる
+- 後でLINEスタンプメーカーで1個ずつ切り出しやすいレイアウトにする
+- 写真のままではなく、「LINEスタンプ向きのデフォルメイラスト」にする
+- 小さく表示されても分かりやすいよう、太めの線、はっきりした表情、シンプルな形で描く
+- 細かすぎる背景や風景は入れない
+- 余計な装飾、枠線、番号、説明文、透かし、長文テキストは入れない
+- 10個すべて「同じキャラクター」で統一する
+- ただし、表情・ポーズ・感情は10個それぞれ明確に変える
+- LINEスタンプとして使いやすい、親しみやすく可愛い仕上がりにする
+
+【背景透過・最重要】
+
+- 画像全体の背景は必ず完全透過にする
+- 白背景、薄い色の背景、単色背景は入れない
+- 背景部分はRGBAのアルファチャンネルを使用した「実際の透明」にする
+- 市松模様・チェック柄・透明を表現するための背景模様を画像として描かない
+- キャラクター、文字、感情記号以外の部分は完全に透明にする
+- 各スタンプの周囲にも透明な余白を十分に確保する
+- 可能な場合は背景透過PNGとして生成する
+- 白い縁取りをキャラクターや文字の周囲に使用することは可能だが、その外側は完全透過にする
+- 「透明に見える白背景」ではなく、本当に背景が削除された透過画像にする
+
+【画像がアップロードされている場合】
+
+- アップロード画像を元に、同じ人物・同じ動物・同じキャラクターだと分かるようにデフォルメする
+- 元画像の顔立ち、髪型、毛色、輪郭、雰囲気、配色、特徴をできるだけ維持する
+- 元画像の印象を保ちながら、スタンプ向けのシンプルなイラストに変換する
+- 別人・別キャラ化しない
+- 10個すべて同一キャラとして統一する
+- 元画像に存在しない大きな特徴やアクセサリーを勝手に追加しない
+
+【画像がアップロードされていない場合】
+
+LINEスタンプ向けに使いやすい、新規のオリジナルキャラクターを自動で1体作成する。
+
+以下の条件を満たすこと。
+
+- 親しみやすい
+- 感情表現しやすい
+- 小さく表示しても見やすい
+- 覚えやすいシルエット
+- 10個以上に展開しやすい
+- 可愛くてシンプルなデフォルメキャラ
+- ゆるい動物系、または親しみやすいミニキャラ系
+- 10個すべてで顔、色、体型、頭身、線、基本デザインを変更しない
+
+【今回作る10種類のスタンプ内容】
+
+以下の10個を、すべて同じキャラクターで作ること。
+
+1. おはよう
+2. ありがとう
+3. OK
+4. 了解
+5. おつかれさま
+6. ごめん
+7. お願い
+8. 笑
+9. びっくり
+10. 泣く
+
+【表現ルール】
+
+- 各スタンプは、ひと目で意味が伝わるようにする
+- 必要に応じて、吹き出しや短い文字を入れてよい
+- 文字を入れる場合は、日本語で大きく読みやすく、短くする
+- 指定されている言葉を別の意味の文章に変更しない
+- 文字を入れすぎない
+- 文字よりもキャラクターの表情やポーズを主役にする
+- 手の動き、涙、汗、キラキラ、ハート、集中線などの簡単な記号表現は使用可
+- 10個が似すぎないように、表情、口、目、手、体の向き、ポーズを変える
+- ただし、顔、色、体型、頭身、線の太さ、世界観は統一する
+- 文字や感情記号も、それぞれのスタンプ領域から大きくはみ出さないようにする
+
+【レイアウトルール】
+
+- 10個を必ず規則正しいグリッド状に配置する
+- 各スタンプ領域の大きさをできるだけ均等にする
+- キャラクターや文字が隣のスタンプ領域に侵入しないようにする
+- スタンプ同士を接触させない
+- 各スタンプの上下左右に十分な透明余白を確保する
+- 後から1個ずつ矩形選択して切り出せる配置にする
+- 10個以外の追加キャラクターや追加スタンプを生成しない
+
+【仕上がり条件】
+
+- 10個のスタンプが1枚にきれいに並んでいること
+- 10個すべてが同一キャラクターであること
+- どのスタンプも独立素材として使えること
+- LINEスタンプメーカーであとから切り出しやすいこと
+- 全体として統一感があり、販売用素材として見栄えがすること
+- 背景は完全透過であること
+- 背景色や背景画像を一切追加しないこと
+- 画像内に透明を表現する市松模様を描かないこと
+
+【最終出力】
+
+最終出力は、
+
+「完全背景透過された10個のLINEスタンプ用イラストを、1枚にまとめたシート画像を1枚だけ」
+
+生成してください。
+
+説明文や確認メッセージは不要です。
+
+画像を1枚だけ生成してください。</pre>
+     </details>
+     <div class="sp-callout" style="margin-top:16px"><b>10個作るのは、保険です。</b><p>申請に必要なのは<b>8個</b>。10個あれば、かぶったものや気に入らないものが出ても良い8個を選べます。作り直しがいちばんめんどうなので、2個多く出しておきます。</p></div>
+    </div>
+   </div>
+   <div class="fk-step">
+    <div class="fk-step-num">3</div>
+    <div class="fk-step-body">
+     <div class="fk-step-label">STEP 3 ／ LINEスタンプメーカー</div>
+     <div class="fk-step-title">アプリを開いて「スタンプ」を選ぶ</div>
+     <p class="fk-step-text">LINE公式の無料アプリです。「1つずつつくる」の緑の<strong>「スタンプ」</strong>から入って、さっき保存した画像を指定します。切りぬき方法をたずねる案内が出ますが、シートから四角く切り出すので使いません。右上の<strong>「スキップ」</strong>で先へ。</p>
+     <div class="fk-checklist"><span>LINE公式アプリ・無料</span><span>iPhone / Android 両対応</span><span>切りぬき方法の案内は「スキップ」</span></div>
+     <div class="fk-step-img-grid"><div><div class="fk-step-img"><img src="assets/step3-app-top.jpg" alt="LINEスタンプメーカーのトップ画面。「1つずつつくる」の下に緑の「スタンプ」と紫の「アニメーションスタンプ」が並んでいる" loading="lazy"></div><p class="fk-step-img-cap">入口は左の緑「スタンプ」。アニメーションスタンプではありません</p></div><div><div class="fk-step-img"><img src="assets/step3-import.jpg" alt="LINEスタンプメーカーに10個並んだスタンプのシート画像を読み込んだ画面。下に「スタンプにしたい部分を切りぬく方法を選んでください」と表示され、右上に「スキップ」がある" loading="lazy"></div><p class="fk-step-img-cap">シートを読み込んだ直後。この案内は右上の「スキップ」で飛ばします</p></div></div>
+     
+     <div style="margin-top:14px;text-align:center"><a href="https://creator.line.me/ja/stickermaker/" target="_blank" rel="noopener" style="display:inline-block;padding:11px 22px;border-radius:999px;background:var(--sk-accent2);color:#fff;font-weight:800;font-size:13.5px;text-decoration:none">LINEスタンプメーカーを見る &rarr;</a></div>
+    </div>
+   </div>
+   <div class="fk-step">
+    <div class="fk-step-num">4</div>
+    <div class="fk-step-body">
+     <div class="fk-step-label">STEP 4 ／ LINEスタンプメーカー</div>
+     <div class="fk-step-title">四角形で切り抜いて、1個ずつ保存する</div>
+     <p class="fk-step-text">左下の<strong>「切り抜き」</strong>から<strong>四角形</strong>を選び、1個だけを枠に収めて「次へ」。トークでの見え方を確認して「保存」。あとは<strong>使いたい8個ぶんくり返すだけ</strong>です。サイズ調整はアプリがやるので、枠を合わせることだけ考えれば大丈夫です。</p>
+     <div class="fk-checklist"><span>切り抜きは「四角形」を選ぶ</span><span>キャラの外側に少し余白を残す</span><span>隣のイラストを枠に入れない</span></div>
+     <div class="fk-step-img-grid"><div><div class="fk-step-img"><img src="assets/step4-editor.jpg" alt="LINEスタンプメーカーの編集画面。画面下のツールバーのいちばん左に「切り抜き」がある" loading="lazy"></div><p class="fk-step-img-cap">① 画面左下の「切り抜き」をタップ</p></div><div><div class="fk-step-img"><img src="assets/step4-square.jpg" alt="切り抜きの形を選ぶパネル。円や星などが並ぶ中で、四角形が緑に選択されている" loading="lazy"></div><p class="fk-step-img-cap">② 形の一覧から四角形を選ぶ</p></div><div><div class="fk-step-img"><img src="assets/step4-cropped.jpg" alt="10個並んだシートから「おはよう」の1個だけを四角く切り抜いた状態" loading="lazy"></div><p class="fk-step-img-cap">③ 1個だけを枠に収めて「次へ」</p></div><div><div class="fk-step-img"><img src="assets/step4-preview.jpg" alt="LINEのトーク画面に、切り抜いた「おはよう」のスタンプが送信された状態のプレビュー" loading="lazy"></div><p class="fk-step-img-cap">④ トークでの見え方を確認して「保存」</p></div></div>
+     
+     
+    </div>
+   </div>
+   <div class="fk-step">
+    <div class="fk-step-num">5</div>
+    <div class="fk-step-body">
+     <div class="fk-step-label">STEP 5 ／ LINEスタンプメーカー</div>
+     <div class="fk-step-title">8個そろえて、スタンプ名を決める</div>
+     <p class="fk-step-text">保存したスタンプは、そのまま一覧に並んでいきます。画面の下に<strong>「最低8個／1パッケージ40個まで」</strong>と書かれているとおりです。8個そろったら、タイトル欄にスタンプ名を入れて、下の緑の<strong>「販売申請」</strong>を押します。</p>
+     <div class="fk-checklist"><span>8個から申請できる（最大40個）</span><span>タイトルは日本語でOK</span><span>説明文は初期の文章のままでも出せる</span></div>
+     <div class="fk-step-img-grid"><div><div class="fk-step-img"><img src="assets/step5-list1.jpg" alt="LINEスタンプメーカーのスタンプ一覧画面。1個だけ保存された状態で、下に最低8個必要という注記がある" loading="lazy"></div><p class="fk-step-img-cap">1個保存した直後。ここに8個ぶん並べていきます</p></div><div><div class="fk-step-img"><img src="assets/step5-list8.jpg" alt="8個のスタンプが並び、タイトルに「愛犬スタンプ」と入力され、画面下に緑の「販売申請」ボタンが出ている" loading="lazy"></div><p class="fk-step-img-cap">8個そろうと、下に「販売申請」が出ます</p></div></div>
+     
+     
+    </div>
+   </div>
+   <div class="fk-step">
+    <div class="fk-step-num">6</div>
+    <div class="fk-step-body">
+     <div class="fk-step-label">STEP 6 ／ 販売申請</div>
+     <div class="fk-step-title">メイン画像と販売情報を決めて、送信する</div>
+     <p class="fk-step-text"><strong>メイン画像</strong>（ショップの一覧に出る顔）を1つ選んで「次へ」。次の販売情報で<strong>販売エリア</strong>と<strong>AIの使用</strong>を設定し、もう一度「次へ」。規約を読んでチェックを入れたら<strong>「リクエスト」</strong>で申請完了です。</p>
+     <div class="fk-checklist"><span>メイン画像はいちばん目を引く1個</span><span>販売エリアは日本以外も選べる</span><span>AIの使用は事実どおりに設定する</span></div>
+     <div class="fk-step-img-grid"><div><div class="fk-step-img"><img src="assets/step6-main.jpg" alt="メイン画像を選択する画面。8個のスタンプが横に並び、選んだ「おはよう」が大きく表示されている" loading="lazy"></div><p class="fk-step-img-cap">① メイン画像を1つ選ぶ</p></div><div><div class="fk-step-img"><img src="assets/step6-area.jpg" alt="販売エリアの設定画面。「選択したエリアのみ」が選ばれ、日本・台湾・タイにチェックが入っている" loading="lazy"></div><p class="fk-step-img-cap">② 販売エリアを決める（日本以外も選べます）</p></div><div><div class="fk-step-img"><img src="assets/step6-ai.jpg" alt="AIの使用を選ぶ画面。「AIを使用しています」にチェックが入っている" loading="lazy"></div><p class="fk-step-img-cap">③ AIの使用は「使用しています」を選ぶ</p></div><div><div class="fk-step-img"><img src="assets/step6-agree.jpg" alt="写真・動画の使用に関する規約の確認画面。各項目にチェックが入り、下に緑の「リクエスト」ボタンがある" loading="lazy"></div><p class="fk-step-img-cap">④ 規約を読んでチェックし「リクエスト」</p></div></div>
+     
+     <div class="sp-callout" style="margin-top:16px"><b>販売エリアは、増やしたほうがいい。</b><p>とくに<b>台湾とタイ</b>は、日本より高い普及率でLINEが使われています。台湾は<b>2,200万人（人口の94.5%）</b>、タイは<b>5,400万人（人口の81.8%）</b>。ここにチェックを足すだけで、<b>スタンプが目に入る人の数が何倍にも広がります。</b>作業は10秒、費用はゼロです。<br>もちろん、置いたから売れるというものではありません。ただ<b>置いていない場所では、絶対に売れません。</b>（出典：<a href="https://www.lycorp.co.jp/ja/company/global/" target="_blank" rel="noopener" style="color:inherit">LINEヤフー「海外における事業展開」</a>／月間アクティブユーザー数）</p></div>
+    </div>
+   </div>
+   <div class="fk-step">
+    <div class="fk-step-num">7</div>
+    <div class="fk-step-body">
+     <div class="fk-step-label">STEP 7 ／ 審査</div>
+     <div class="fk-step-title">通れば、あとは並ぶだけ</div>
+     <p class="fk-step-text">LINE公式の案内では<strong>約2日間（早ければ数時間）</strong>。承認されると、LINEスタンプショップとLINE STOREに並びます。差し戻されても、直して出し直せます。</p>
+     <div class="fk-checklist"><span>審査は約2日（早くて数時間）</span><span>差し戻されても直して再申請できる</span><span>承認後は自分のタイミングで販売開始</span></div>
+     
+     
+     
+    </div>
+   </div>
+ </div>
+</section>
+
+<section class="sp-sec">
+ <div class="sp-wrap">
+  <p class="sp-eyebrow">公式の規格</p><h2 class="sp-title">サイズは、アプリが<br class="sk-br">合わせてくれます</h2><p class="sp-lead">この手順で進めるかぎり、サイズを気にする場面はありません。下の表は、慣れてきて自分で画像を作りたくなったとき用です。</p>
+  <details class="sp-fold"><summary>公式ガイドラインの数値を見る（いまは開かなくてOK）</summary><div class="sp-fold-body"><div class="sp-table" style="margin-bottom:14px">
+   <p class="sp-table-cap">静止スタンプ｜LINE Creators Market 公式ガイドライン</p>
+   <dl style="margin:0">
+   <div class="sp-row"><dt>スタンプ画像</dt><dd><b>370×320px 以内</b>／8・16・24・32・40個から選ぶ</dd></div>
+   <div class="sp-row"><dt>メイン画像</dt><dd>240×240px を1個</dd></div>
+   <div class="sp-row"><dt>トークルームタブ画像</dt><dd>96×74px を1個</dd></div>
+   <div class="sp-row"><dt>ファイル形式</dt><dd>すべてPNG。イラストの背景は透過にする</dd></div>
+   <div class="sp-row"><dt>容量</dt><dd>1個あたり1MB以下／ZIP合計60MB以下</dd></div>
+   <div class="sp-row"><dt>その他</dt><dd>解像度72dpi以上・カラーモードRGB・サイズは偶数・絵の外側に10px程度の余白</dd></div>
+   </dl>
+  </div></div></details>
+  <p class="sp-src">出典：<a href="https://creator.line.me/ja/guideline/sticker/" target="_blank" rel="noopener">LINE Creators Market スタンプ制作ガイドライン</a>（2026年8月30日確認）。規格は変わることがあるので、申請前に公式ページで確認してください。</p>
+ </div>
+</section>
+
+<section class="fk-note-section">
+  <div class="fk-note"><b>権利のあるものは使わない。</b><br>実在するキャラクター、企業ロゴ、有名人の顔、特定の作家の画風はNGです。上のプロンプトには、この禁止条件が最初から書き込んであります。</div>
+  <div class="fk-note"><b>他人が写った写真は、許可を取ってから。</b><br>友だちやお子さんの写真も同じです（未成年なら保護者の許可）。</div>
+  <div class="fk-note"><b>分配額は目安です。</b><br>「約42円 → 約66円」は販売価格に約35%を掛けた計算で、購入経路や手数料で変わります。審査の通過や売上を保証するものではありません。</div>
+</section>
+
+<section class="fk-faq">
+ <p class="fk-section-eyebrow">よくある質問</p>
+ <h2 class="fk-section-title">気になるところ</h2>
+ <div class="fk-faq-wrap">
+  <details class="fk-faq-item is-fold"><summary class="fk-faq-q"><span>Q</span>写真がなくても作れますか</summary><div class="fk-faq-a">作れます。プロンプトに「画像がない場合」の指示が入っていて、オリジナルキャラクターを1体つくってから10個に展開します。</div></details>
+  <details class="fk-faq-item is-fold"><summary class="fk-faq-q"><span>Q</span>パソコンは必要ですか</summary><div class="fk-faq-a">必要ありません。ChatGPTもLINEスタンプメーカーも、スマホアプリで完結します。</div></details>
+  <details class="fk-faq-item is-fold"><summary class="fk-faq-q"><span>Q</span>ChatGPTは無料プランでも大丈夫ですか</summary><div class="fk-faq-a">画像生成に回数の上限があるので、途中で止まることがあります。上限が回復してから続けるか、有料プランを検討してください。</div></details>
+  <details class="fk-faq-item is-fold"><summary class="fk-faq-q"><span>Q</span>最初から40個作ったほうがいいですか</summary><div class="fk-faq-a">まず8個で1セット出して、反応を見てから増やすほうが早く回せます。</div></details>
+  <details class="fk-faq-item is-fold"><summary class="fk-faq-q"><span>Q</span>審査に落ちたらどうなりますか</summary><div class="fk-faq-a">どこが基準に合わなかったかが示されるので、直して出し直せます。1回勝負ではありません。</div></details>
+  <details class="fk-faq-item is-fold"><summary class="fk-faq-q"><span>Q</span>同じキャラクターで続きを作れますか</summary><div class="fk-faq-a">作れます。1枚目のシートを添付して「このキャラクターのまま、別の10個を作って」と伝えるだけです。シリーズにすると、1つ買った人がもう1つ買ってくれることがあります。</div></details>
+ </div>
+</section>
+</main>
+
+<section class="sk-gap">
+ <div class="sk-wrap">
+  <div class="sk-head"><h2 class="sk-h">手順は、<br class="sk-br">全部渡しました。<br>ただ、厳しいことを言います。</h2></div>
+  <p class="sk-gap-lead">
+   <strong>これだけでは、うまくいきません。</strong><br>
+   僕自身の経験から、断言します。<br><br>
+   一回スタンプが出ることと、<br>それが収入になり続けることは、<br>まったく別の話です。
+  </p>
+  <ul class="sk-gap-list">
+   <li>どんなテーマなら、実際に手に取ってもらえるのか</li>
+   <li>1セット出して終わりにせず、2セット目・3セット目をどう続けるか</li>
+   <li>そもそも自分は、これを続けるべきなのか</li>
+  </ul>
+  <p class="sk-gap-close">ここで止まる人が、いちばん多いです。</p>
+
+  <div class="sk-story">
+   <span class="sk-story-tag">僕も、同じ止まり方をしました</span>
+   <p>偉そうに書いていますが、僕は失敗の方がずっと多いです。</p>
+   <p>投資、仮想通貨、プログラミング、物販。<strong>全部、自分で調べて、自分でやりました。</strong></p>
+   <p>仮想通貨の送金は、ひとつ間違えたらもう取り戻せません。それをろくに調べないままやって、<strong>よく分かっていないところに20万円を送りました。僕の一ヶ月分の収入です。</strong></p>
+   <p>取り戻すには一ヶ月ただ働きするしかない。そう気づいたとき、<strong>涙が出ました。</strong>調べなかった自分、ちゃんと分かっていなかった自分のせいなのに。</p>
+   <p><span class="sk-punch">自分で勝手に分かった気になっていただけで、結果には、まったく結びついていませんでした。</span></p>
+   </div>
+ </div>
+</section>
+
+
+<script>document.documentElement.classList.add('sk-js');</script>
+<section class="sk-diff">
+ <div class="sk-wrap">
+  <div class="sk-d-q sk-r">
+   <span class="sk-d-q-tag">ひとつだけ、聞かせてください</span>
+   <p>ひとりで調べて、<br>うまくいかなかったこと。<br><b>ありませんか。</b></p>
+  </div>
+
+  <p class="sk-d-p sk-r">僕は、無理でした。<br>
+   独学では、どうにもならなかった。<br>
+   <b>身をもって、知ったことです。</b></p>
+
+  <p class="sk-d-lead sk-r">じゃあ、何が正解だったのか。</p>
+
+  <div class="sk-d-ans sk-r"><b>その道のプロに、教わる。</b><br>
+   これでした。</div>
+
+  <p class="sk-d-close sk-r">一見、遠回りに見えて。<br>これが、一番早かったんです。</p>
+ </div>
+</section>
+
+<section class="sk-cta" id="sk-cta">
+ <div class="sk-wrap">
+  <div class="sk-head"><h2 class="sk-h">まずは、聞くところから<br class="sk-br">始めてみませんか。</h2></div>
+  <p class="sk-bridge">同じ失敗を繰り返した僕だから、言えます。<br><br><b>ここまで読んでくれたあなたには、<br>同じ思いをしてほしくない。</b><br><br>だから、無料で話せる場を用意しました。<br><br><strong>実際にこの道で結果を出している人が、<br>直接、話を聞きます。</strong><br><br><strong>何かを決めてから来る必要はありません。</strong><br>決まっていないことを、<br>一緒に決める場です。</p>
+
+  <a class="sk-line-btn" href="https://utage-system.com/line/open/nj3MC6diybeh?mtid=e7lKz8UUmrSO" target="_blank" rel="noopener">
+   <span class="sk-tap">＼ タップして ／</span>
+   <span class="sk-btn-main"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h3v4.2l4.8-4.2H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg>公式LINEで無料で受け取る</span>
+  </a>
+
+  <p class="sk-after-btn">追加すると、メニューの中に案内があります。</p><div class="sk-extra">さらに、登録した方には<br><b>『AIマネタイズの教科書』</b>もお渡ししています。<br>AIで稼いでいく手順が一通り分かるので、<br>話す前に目を通しておくと早いです。</div><p class="sk-scarcity">※ 内容は予告なく変更・終了する場合があります。</p>
+  <p class="sk-note">タップすると、公式LINEの友だち追加ページへ移動します。</p>
+ </div>
+</section>
+
+
+<footer class="sk-footer">
+ <p class="sk-tagline">ChatGPTでLINEスタンプを作って売るガイド — 写真1枚、スマホだけ、8個から</p>
+ <a class="sk-footer-ig" href="https://www.instagram.com/smitch_ai_works/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>Instagram：@smitch_ai_works</a>
+ <p>すみっち ｜ 30歳・現役エンジニア／AI×副業を発信中</p>
+ <p class="sk-copy">&copy; 2026 @smitch_ai_works. All Rights Reserved.</p>
+</footer>
+
+<script>
+document.querySelectorAll('.fk-prompt-copy').forEach(function(btn){
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var pre = btn.closest('.fk-prompt').querySelector('pre');
+    navigator.clipboard.writeText(pre.textContent).then(function(){
+      var t = btn.textContent; btn.textContent = '✓ コピー済み';
+      setTimeout(function(){ btn.textContent = t; }, 1500);
+    });
+  });
+});
+</script>
+
+<script>
+/* コピー直後のひとこと。読者が「目的を達成した瞬間」だけに出す。
+   コピーボタンが無いページでは、6.5割まで読み進めた時点で1度だけ出す。 */
+(function(){
+  var cta = document.getElementById('sk-cta');
+  if (!cta) return;
+  var shown = 0, el = null, timer = null;
+
+  function build(){
+    el = document.createElement('a');
+    el.className = 'sk-cue';
+    el.href = '#sk-cta';
+    el.innerHTML = '<span>コピーできました。<b>ほかの型もまとめて置いてあります</b></span>'
+                 + '<span class="sk-cue-arrow">&darr;</span>';
+    var x = document.createElement('button');
+    x.className = 'sk-cue-x'; x.type = 'button';
+    x.setAttribute('aria-label', '閉じる');
+    x.textContent = '\u00d7';
+    x.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); hide(); shown = 9; });
+    el.appendChild(x);
+    el.addEventListener('click', function(){ hide(); });
+    document.body.appendChild(el);
+  }
+
+  function ctaVisible(){
+    var r = cta.getBoundingClientRect();
+    return r.top < innerHeight && r.bottom > 0;
+  }
+  function hide(){ if (el) el.classList.remove('is-on'); clearTimeout(timer); }
+  function show(){
+    if (shown >= 2 || ctaVisible()) return;
+    if (!el) build();
+    shown++;
+    /* rAF はバックグラウンドタブで止まるため使わない */
+    setTimeout(function(){ el.classList.add('is-on'); }, 20);
+    clearTimeout(timer);
+    timer = setTimeout(hide, 8000);
+  }
+
+  var buttons = [].slice.call(document.querySelectorAll('button'))
+                  .filter(function(b){ return /コピー/.test(b.textContent || ''); });
+
+  if (buttons.length) {
+    document.addEventListener('click', function(e){
+      var b = e.target && e.target.closest ? e.target.closest('button') : null;
+      if (b && /コピー/.test(b.textContent || '') && !b.classList.contains('sk-cue-x')) {
+        setTimeout(show, 550);
+      }
+    }, true);
+  } else {
+    var fired = false;
+    addEventListener('scroll', function(){
+      if (fired) return;
+      var h = document.documentElement.scrollHeight - innerHeight;
+      if (h > 0 && scrollY / h > 0.65) { fired = true; show(); }
+    }, { passive: true });
+  }
+  addEventListener('scroll', function(){ if (el && el.classList.contains('is-on') && ctaVisible()) hide(); },
+                   { passive: true });
+})();
+</script>
+
+<script>
+/* 終盤ブロックのスクロール表示。IntersectionObserver が無ければ常時表示に戻す */
+(function(){
+  var d = document;
+  if (!('IntersectionObserver' in window)) { d.documentElement.classList.remove('sk-js'); return; }
+  var t = [].slice.call(d.querySelectorAll(
+    '.sk-diff .sk-r, .sk-gap-lead, .sk-gap-list, .sk-gap-close, .sk-story, .sk-bridge, .sk-line-btn, .sk-extra'));
+  t.forEach(function(el){ el.classList.add('sk-r'); });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  t.forEach(function(el){ io.observe(el); });
+  setTimeout(function(){ t.forEach(function(el){ el.classList.add('is-in'); }); }, 3000);
+})();
+</script>
+<script>
+(function(){
+ if(!('IntersectionObserver' in window)) return;
+ var t=[].slice.call(document.querySelectorAll(
+  '.fk-step,.sp-stat,.sp-table,.sp-fold,.fk-flow-node,.sp-tab,.fk-note,.sp-tree,.fk-faq-item,.sp-callout'));
+ t.forEach(function(el){ el.classList.add('sp-rv'); });
+ var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+   if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+  });
+ },{rootMargin:'0px 0px -6% 0px',threshold:0.04});
+ t.forEach(function(el){ io.observe(el); });
+ /* 監視が働かない環境で消えたままにならないように */
+ setTimeout(function(){ t.forEach(function(el){ el.classList.add('is-in'); }); }, 3000);
+})();
+</script>
+<a class="sp-dock" id="sp-dock" href="https://utage-system.com/line/open/nj3MC6diybeh?mtid=e7lKz8UUmrSO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h3v4.2l4.8-4.2H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><span class="sp-dock-t">公式LINEで無料で受け取る<small>このページの手順の、その先の話</small></span><span class="sp-dock-a">&rarr;</span></a>
+<script>
+(function(){
+ var d = document.getElementById('sp-dock');
+ var cta = document.getElementById('sk-cta');
+ if (!d) return;
+ var closed = false;
+ var x = document.createElement('button');
+ x.className = 'sp-dock-x'; x.type = 'button';
+ x.setAttribute('aria-label','閉じる');
+ x.textContent = '\u00d7';
+ x.addEventListener('click', function(e){
+  e.preventDefault(); e.stopPropagation();
+  closed = true; d.classList.remove('is-on');
+  document.body.classList.remove('sp-has-dock');
+ });
+ d.appendChild(x);
+
+ function ctaVisible(){
+  if (!cta) return false;
+  var r = cta.getBoundingClientRect();
+  return r.top < innerHeight && r.bottom > 0;
+ }
+ function update(){
+  /* 1画面ぶん読んでから出す。本物のCTAが見えている間は引っ込める */
+  var on = !closed && scrollY > innerHeight * 0.9 && !ctaVisible();
+  d.classList.toggle('is-on', on);
+  document.body.classList.toggle('sp-has-dock', on);
+ }
+ addEventListener('scroll', update, { passive: true });
+ addEventListener('resize', update, { passive: true });
+ update();
+})();
+</script>
+</body>
+</html>
